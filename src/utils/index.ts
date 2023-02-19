@@ -76,15 +76,54 @@ const createDoor = () => {
   return door;
 };
 
+// keep the geometries and materials separate for performance
+// reuse them multiple times instead of initializing new instances each time
+const createBush = () => {
+  const bushSizes = {
+    radius: 1,
+    widthSegments: 16,
+    heightSegments: 16,
+  };
+
+  return new THREE.Mesh(
+    new THREE.SphereGeometry(
+      bushSizes.radius,
+      bushSizes.widthSegments,
+      bushSizes.heightSegments,
+    ),
+    new THREE.MeshStandardMaterial({ color: '#89c854' }),
+  );
+};
+
 export const createHouse = () => {
   const house = new THREE.Group();
+
   const walls = createWalls();
   const roof = createRoof();
   const door = createDoor();
 
-  house.add(walls);
-  house.add(roof);
-  house.add(door);
+  const bush1 = createBush();
+  bush1.scale.set(0.5, 0.5, 0.5);
+  bush1.position.set(1.25, 0.1, 2);
+
+  const bush2 = createBush();
+  bush2.scale.set(0.25, 0.25, 0.25);
+  bush2.position.set(1.7, 0.1, 2.2);
+
+  const bush3 = createBush();
+  bush3.scale.set(0.6, 0.6, 0.6);
+  bush3.position.set(-1.35, 0.1, 2);
+
+  const bush4 = createBush();
+  bush4.scale.set(0.2, 0.2, 0.2);
+  bush4.position.set(-2, 0.1, 2.3);
+
+  const bush5 = createBush();
+  bush5.scale.set(0.2, 0.2, 0.2);
+  bush5.position.set(-1.8, 0.1, 2.5);
+
+  house.add(walls, roof, door);
+  house.add(bush1, bush2, bush3, bush4, bush5);
 
   return house;
 };

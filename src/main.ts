@@ -13,9 +13,6 @@ document.body.appendChild(stats.dom);
 // debug
 const gui = new GUI();
 
-// textures
-const textureLoader = new THREE.TextureLoader();
-
 // canvas
 const canvas = document.getElementsByClassName('webgl')[0] as HTMLCanvasElement;
 
