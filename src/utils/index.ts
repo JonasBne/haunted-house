@@ -95,6 +95,44 @@ const createBush = () => {
   );
 };
 
+const createGrave = () => {
+  const graveSizes = {
+    width: 0.6,
+    height: 0.8,
+    depth: 0.2,
+  };
+
+  return new THREE.Mesh(
+    new THREE.BoxGeometry(
+      graveSizes.width,
+      graveSizes.height,
+      graveSizes.depth,
+    ),
+    new THREE.MeshStandardMaterial({ color: '#b2b6b1' }),
+  );
+};
+
+export const createGraves = () => {
+  const graves = new THREE.Group();
+
+  for (let i = 0; i < 60; i++) {
+    // multiply random number with Math.PI to make sure it stays in a circle
+    const angle = Math.random() * Math.PI * 2;
+    // random radius to position it away from the house
+    const radius = 3 + Math.random() * 6;
+    const xPosition = Math.sin(angle) * radius;
+    const zPosition = Math.cos(angle) * radius;
+
+    const grave = createGrave();
+    grave.position.set(xPosition, 0.3, zPosition);
+    grave.rotation.z = (Math.random() - 0.5) * 0.4;
+    grave.rotation.y = (Math.random() - 0.5) * 0.4;
+    graves.add(grave);
+  }
+
+  return graves;
+};
+
 export const createHouse = () => {
   const house = new THREE.Group();
 

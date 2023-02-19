@@ -3,7 +3,7 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import Stats from 'stats.js';
 import GUI from 'lil-gui';
-import { createFloor, createHouse } from './utils';
+import { createFloor, createGraves, createHouse } from './utils';
 
 // stats
 const stats = new Stats();
@@ -30,6 +30,10 @@ const floor = createFloor();
 floor.rotation.x = -Math.PI * 0.5;
 floor.position.y = 0;
 scene.add(floor);
+
+// graves
+const graves = createGraves();
+scene.add(graves);
 
 // lights
 // Ambient light
