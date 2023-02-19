@@ -5,6 +5,8 @@
 This project is part of [threejs-journey](https://threejs-journey.com/) by Bruno Simon.
 I've bootstrapped this application with my [starter template](https://github.com/JonasBne/threejs-vite-starter-project) for setting up a three.js project with Vite & TypeScript.
 
+Code will differ from the example because I've tried to code things first.
+
 ### Available scripts
 
 ```bash
