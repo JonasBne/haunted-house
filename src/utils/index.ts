@@ -112,6 +112,14 @@ const createGrave = () => {
   );
 };
 
+const createDoorLight = () => {
+  const doorLight = new THREE.PointLight('#ff7d46', 1, 7);
+  doorLight.position.z = 2.2;
+  doorLight.position.y = 2.7;
+
+  return doorLight;
+};
+
 export const createGraves = () => {
   const graves = new THREE.Group();
 
@@ -160,8 +168,11 @@ export const createHouse = () => {
   bush5.scale.set(0.2, 0.2, 0.2);
   bush5.position.set(-1.8, 0.1, 2.5);
 
+  const doorLight = createDoorLight();
+
   house.add(walls, roof, door);
   house.add(bush1, bush2, bush3, bush4, bush5);
+  house.add(doorLight);
 
   return house;
 };
