@@ -3,7 +3,7 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import Stats from 'stats.js';
 import GUI from 'lil-gui';
-import { createFloor } from './utils';
+import { createFloor, createHouse } from './utils';
 
 // stats
 const stats = new Stats();
@@ -23,6 +23,11 @@ const canvas = document.getElementsByClassName('webgl')[0] as HTMLCanvasElement;
 const scene = new THREE.Scene();
 
 // objects
+
+// house
+const house = createHouse();
+scene.add(house);
+
 // floor
 const floor = createFloor();
 floor.rotation.x = -Math.PI * 0.5;
