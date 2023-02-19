@@ -9,7 +9,7 @@ export const createFloor = () => {
   return new THREE.Mesh(geo, material);
 };
 
-export const createWalls = () => {
+const createWalls = () => {
   const wallsTexture = textureLoader.load(
     '../../static/textures/bricks/color.jpg',
   );
@@ -30,7 +30,7 @@ export const createWalls = () => {
   return walls;
 };
 
-export const createRoof = () => {
+const createRoof = () => {
   const roofSizes = {
     radius: 3.5,
     height: 1,
@@ -54,13 +54,37 @@ export const createRoof = () => {
   return roof;
 };
 
+const createDoor = () => {
+  const doorTexture = textureLoader.load(
+    '../../static/textures/door/color.jpg',
+  );
+
+  const doorSizes = {
+    width: 1.4,
+    height: 2.3,
+  };
+
+  const door = new THREE.Mesh(
+    new THREE.PlaneGeometry(doorSizes.width, doorSizes.height),
+    new THREE.MeshStandardMaterial({ map: doorTexture }),
+  );
+
+  // depth of walls divided by two but with a little extra to avoid flickering
+  door.position.z = 2.01;
+  door.position.y = doorSizes.height / 2;
+
+  return door;
+};
+
 export const createHouse = () => {
   const house = new THREE.Group();
   const walls = createWalls();
   const roof = createRoof();
+  const door = createDoor();
 
   house.add(walls);
   house.add(roof);
+  house.add(door);
 
   return house;
 };
