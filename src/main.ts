@@ -2,23 +2,47 @@ import './style.css';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import Stats from 'stats.js';
+import GUI from 'lil-gui';
+import { createFloor } from './utils';
 
 // stats
 const stats = new Stats();
 stats.showPanel(0);
 document.body.appendChild(stats.dom);
 
+// debug
+const gui = new GUI();
+
+// textures
+const textureLoader = new THREE.TextureLoader();
+
 // canvas
 const canvas = document.getElementsByClassName('webgl')[0] as HTMLCanvasElement;
 
-// initiate a scene
+// scene
 const scene = new THREE.Scene();
 
-// mesh
-const geometry = new THREE.BoxGeometry(0.75, 0.75, 0.75);
-const material = new THREE.MeshBasicMaterial({ color: 'green' });
-const mesh = new THREE.Mesh(geometry, material);
-scene.add(mesh);
+// objects
+// floor
+const floor = createFloor();
+floor.rotation.x = -Math.PI * 0.5;
+floor.position.y = 0;
+scene.add(floor);
+
+// lights
+// Ambient light
+const ambientLight = new THREE.AmbientLight('#ffffff', 0.5);
+gui.add(ambientLight, 'intensity').min(0).max(1).step(0.001);
+scene.add(ambientLight);
+
+// Directional light
+const moonLight = new THREE.DirectionalLight('#ffffff', 0.5);
+moonLight.position.set(4, 5, -2);
+gui.add(moonLight, 'intensity').min(0).max(1).step(0.001);
+gui.add(moonLight.position, 'x').min(-5).max(5).step(0.001);
+gui.add(moonLight.position, 'y').min(-5).max(5).step(0.001);
+gui.add(moonLight.position, 'z').min(-5).max(5).step(0.001);
+scene.add(moonLight);
 
 // sizes
 const sizes = {
@@ -50,13 +74,16 @@ window.addEventListener('dblclick', () => {
 });
 
 // camera
+// Base camera
 const camera = new THREE.PerspectiveCamera(
   75,
   sizes.width / sizes.height,
   0.1,
-  1000,
+  100,
 );
-camera.position.z = 3;
+camera.position.x = 4;
+camera.position.y = 2;
+camera.position.z = 5;
 scene.add(camera);
 
 // controls
