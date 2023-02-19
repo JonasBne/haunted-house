@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import { colors } from '../consts';
 
 const textureLoader = new THREE.TextureLoader();
 
@@ -43,7 +44,7 @@ const createRoof = () => {
       roofSizes.height,
       roofSizes.radialSegments,
     ),
-    new THREE.MeshStandardMaterial({ color: '#b35f45' }),
+    new THREE.MeshStandardMaterial({ color: colors.roof }),
   );
 
   // walls sizes + half height of the roof
@@ -91,7 +92,7 @@ const createBush = () => {
       bushSizes.widthSegments,
       bushSizes.heightSegments,
     ),
-    new THREE.MeshStandardMaterial({ color: '#89c854' }),
+    new THREE.MeshStandardMaterial({ color: colors.bush }),
   );
 };
 
@@ -108,12 +109,12 @@ const createGrave = () => {
       graveSizes.height,
       graveSizes.depth,
     ),
-    new THREE.MeshStandardMaterial({ color: '#b2b6b1' }),
+    new THREE.MeshStandardMaterial({ color: colors.grave }),
   );
 };
 
 const createDoorLight = () => {
-  const doorLight = new THREE.PointLight('#ff7d46', 1, 7);
+  const doorLight = new THREE.PointLight(colors.doorLight, 1, 7);
   doorLight.position.z = 2.2;
   doorLight.position.y = 2.7;
 
