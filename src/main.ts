@@ -4,6 +4,7 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import Stats from 'stats.js';
 import GUI from 'lil-gui';
 import { createFloor, createGraves, createHouse } from './utils';
+import { colors } from './consts';
 
 // stats
 const stats = new Stats();
@@ -49,6 +50,10 @@ gui.add(moonLight.position, 'x').min(-5).max(5).step(0.001);
 gui.add(moonLight.position, 'y').min(-5).max(5).step(0.001);
 gui.add(moonLight.position, 'z').min(-5).max(5).step(0.001);
 scene.add(moonLight);
+
+// fog
+const fog = new THREE.Fog(colors.fog, 2, 10);
+scene.fog = fog;
 
 // sizes
 const sizes = {
@@ -102,6 +107,8 @@ const renderer = new THREE.WebGLRenderer({
 });
 // add size to renderer to avoid pixelated view
 renderer.setSize(window.innerWidth, window.innerHeight);
+// give renderer same color as fog
+renderer.setClearColor(colors.fog);
 
 const animate = () => {
   // start stats monitoring
