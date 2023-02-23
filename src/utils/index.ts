@@ -56,23 +56,56 @@ const createRoof = () => {
 };
 
 const createDoor = () => {
-  const doorTexture = textureLoader.load(
+  const doorColorTexture = textureLoader.load(
     '../../static/textures/door/color.jpg',
+  );
+  const doorAlphaTexture = textureLoader.load(
+    '../../static//textures/door/alpha.jpg',
+  );
+  const doorAmbientOcclusionTexture = textureLoader.load(
+    '/textures/door/ambientOcclusion.jpg',
+  );
+  const doorHeightTexture = textureLoader.load(
+    '../../static//textures/door/height.jpg',
+  );
+  const doorNormalTexture = textureLoader.load(
+    '../../static//textures/door/normal.jpg',
+  );
+  const doorMetalnessTexture = textureLoader.load(
+    '../../static//textures/door/metalness.jpg',
+  );
+  const doorRoughnessTexture = textureLoader.load(
+    '../../static//textures/door/roughness.jpg',
   );
 
   const doorSizes = {
-    width: 1.4,
-    height: 2.3,
+    width: 2.2,
+    height: 2.4,
   };
 
   const door = new THREE.Mesh(
-    new THREE.PlaneGeometry(doorSizes.width, doorSizes.height),
-    new THREE.MeshStandardMaterial({ map: doorTexture }),
+    new THREE.PlaneGeometry(doorSizes.width, doorSizes.height, 100, 100),
+    new THREE.MeshStandardMaterial({
+      map: doorColorTexture,
+      transparent: true,
+      alphaMap: doorAlphaTexture,
+      aoMap: doorAmbientOcclusionTexture,
+      displacementMap: doorHeightTexture,
+      displacementScale: 0.1,
+      normalMap: doorNormalTexture,
+      metalnessMap: doorMetalnessTexture,
+      roughnessMap: doorRoughnessTexture,
+    }),
+  );
+
+  door.geometry.setAttribute(
+    'uv2',
+    new THREE.Float32BufferAttribute(door.geometry.attributes.uv.array, 2),
   );
 
   // depth of walls divided by two but with a little extra to avoid flickering
   door.position.z = 2.01;
-  door.position.y = doorSizes.height / 2;
+  door.position.y = doorSizes.height / 2 - 0.1;
 
   return door;
 };
@@ -114,7 +147,7 @@ const createGrave = () => {
 };
 
 const createDoorLight = () => {
-  const doorLight = new THREE.PointLight(colors.doorLight, 1, 7);
+  const doorLight = new THREE.PointLight(colors.doorLight, 2, 10);
   doorLight.position.z = 2.2;
   doorLight.position.y = 2.7;
 
