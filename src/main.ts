@@ -3,8 +3,9 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import Stats from 'stats.js';
 import GUI from 'lil-gui';
-import { createFloor, createGraves, createHouse } from './utils';
+import { createFloor, createGhosts, createGraves, createHouse } from './utils';
 import { colors } from './consts';
+import { Clock } from 'three';
 
 // stats
 const stats = new Stats();
@@ -36,6 +37,10 @@ scene.add(floor);
 const graves = createGraves();
 scene.add(graves);
 
+// ghosts
+const { ghost1, ghost2, ghost3 } = createGhosts();
+scene.add(ghost1, ghost2, ghost3);
+
 // lights
 // Ambient light
 const ambientLight = new THREE.AmbientLight(colors.light, 0.12);
@@ -52,7 +57,7 @@ gui.add(moonLight.position, 'z').min(-5).max(5).step(0.001);
 scene.add(moonLight);
 
 // fog
-const fog = new THREE.Fog(colors.fog, 2, 10);
+const fog = new THREE.Fog(colors.fog, 1, 10);
 scene.fog = fog;
 
 // sizes
@@ -110,11 +115,29 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 // give renderer same color as fog
 renderer.setClearColor(colors.fog);
 
+const clock = new Clock();
+
 const animate = () => {
+  const elapsedTime = clock.getElapsedTime();
   // start stats monitoring
   stats.begin();
   // enable damping
   controls.update();
+  // animate ghosts to keep them floating around the house in a circle
+  const ghost1Angle = elapsedTime * 0.8;
+  ghost1.position.x = Math.cos(ghost1Angle) * 4;
+  ghost1.position.z = Math.sin(ghost1Angle) * 4;
+  ghost1.position.y = Math.sin(ghost1Angle) * 3;
+
+  const ghost2Angle = elapsedTime * 0.3;
+  ghost2.position.x = Math.cos(ghost2Angle) * 6;
+  ghost2.position.z = Math.sin(ghost2Angle) * 6;
+  ghost2.position.y = Math.sin(elapsedTime * 4) + Math.sin(elapsedTime * 2.5);
+
+  const ghost3Angle = elapsedTime * 0.8;
+  ghost3.position.x = Math.cos(ghost3Angle) * 7;
+  ghost3.position.z = Math.sin(ghost3Angle) * 7;
+  ghost3.position.y = Math.sin(elapsedTime * 4) + Math.sin(elapsedTime * 2.5);
   // render scene
   renderer.render(scene, camera);
   // end of stats monitoring

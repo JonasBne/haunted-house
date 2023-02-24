@@ -238,6 +238,18 @@ export const createGraves = () => {
   return graves;
 };
 
+export const createGhosts = () => {
+  const ghost1 = new THREE.PointLight(colors.ghost1, 2, 3);
+  const ghost2 = new THREE.PointLight(colors.ghost2, 2, 3);
+  const ghost3 = new THREE.PointLight(colors.ghost3, 2, 3);
+
+  return {
+    ghost1,
+    ghost2,
+    ghost3,
+  };
+};
+
 export const createHouse = () => {
   const house = new THREE.Group();
 
