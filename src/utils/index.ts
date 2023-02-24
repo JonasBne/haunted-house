@@ -46,6 +46,8 @@ export const createFloor = () => {
 
   const floor = new THREE.Mesh(geo, material);
 
+  floor.receiveShadow = true;
+
   floor.geometry.setAttribute(
     'uv2',
     new THREE.Float32BufferAttribute(floor.geometry.attributes.uv.array, 2),
@@ -182,7 +184,7 @@ const createBush = () => {
     heightSegments: 16,
   };
 
-  return new THREE.Mesh(
+  const bush = new THREE.Mesh(
     new THREE.SphereGeometry(
       bushSizes.radius,
       bushSizes.widthSegments,
@@ -190,6 +192,10 @@ const createBush = () => {
     ),
     new THREE.MeshStandardMaterial({ color: colors.bush }),
   );
+
+  bush.castShadow = true;
+
+  return bush;
 };
 
 const createGrave = () => {
@@ -199,7 +205,7 @@ const createGrave = () => {
     depth: 0.2,
   };
 
-  return new THREE.Mesh(
+  const grave = new THREE.Mesh(
     new THREE.BoxGeometry(
       graveSizes.width,
       graveSizes.height,
@@ -207,6 +213,8 @@ const createGrave = () => {
     ),
     new THREE.MeshStandardMaterial({ color: colors.grave }),
   );
+
+  return grave;
 };
 
 const createDoorLight = () => {
@@ -229,6 +237,9 @@ export const createGraves = () => {
     const zPosition = Math.cos(angle) * radius;
 
     const grave = createGrave();
+
+    grave.castShadow = true;
+
     grave.position.set(xPosition, 0.3, zPosition);
     grave.rotation.z = (Math.random() - 0.5) * 0.4;
     grave.rotation.y = (Math.random() - 0.5) * 0.4;
@@ -252,6 +263,7 @@ export const createGhosts = () => {
 
 export const createHouse = () => {
   const house = new THREE.Group();
+  house.castShadow = true;
 
   const walls = createWalls();
   const roof = createRoof();

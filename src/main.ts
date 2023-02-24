@@ -29,6 +29,7 @@ scene.add(house);
 
 // floor
 const floor = createFloor();
+floor.receiveShadow = true;
 floor.rotation.x = -Math.PI * 0.5;
 floor.position.y = 0;
 scene.add(floor);
@@ -114,6 +115,10 @@ const renderer = new THREE.WebGLRenderer({
 renderer.setSize(window.innerWidth, window.innerHeight);
 // give renderer same color as fog
 renderer.setClearColor(colors.fog);
+renderer.shadowMap.enabled = true;
+
+// shadows
+moonLight.castShadow = true;
 
 const clock = new Clock();
 
