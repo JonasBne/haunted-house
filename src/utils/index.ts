@@ -4,10 +4,54 @@ import { colors } from '../consts';
 const textureLoader = new THREE.TextureLoader();
 
 export const createFloor = () => {
-  const geo = new THREE.PlaneGeometry(20, 20);
-  const material = new THREE.MeshStandardMaterial({ color: '#a9c388' });
+  const floorColorTexture = textureLoader.load(
+    '../../static/textures/grass/color.jpg',
+  );
+  const floorAmbientOcclusionTexture = textureLoader.load(
+    '../../static/textures/grass/ambientOcclusion.jpg',
+  );
+  const floorNormalTexture = textureLoader.load(
+    '../../static/textures/grass/normal.jpg',
+  );
+  const floorRoughnessTexture = textureLoader.load(
+    '../../static/textures/grass/roughness.jpg',
+  );
 
-  return new THREE.Mesh(geo, material);
+  // repeat the texture in smaller sizes to avoid that really large grasses
+  floorColorTexture.repeat.set(8, 8);
+  floorAmbientOcclusionTexture.repeat.set(8, 8);
+  floorNormalTexture.repeat.set(8, 8);
+  floorRoughnessTexture.repeat.set(8, 8);
+
+  // textures do not repeat by default so this has to be activated
+  floorColorTexture.wrapS = THREE.RepeatWrapping;
+  floorColorTexture.wrapT = THREE.RepeatWrapping;
+
+  floorAmbientOcclusionTexture.wrapS = THREE.RepeatWrapping;
+  floorAmbientOcclusionTexture.wrapT = THREE.RepeatWrapping;
+
+  floorNormalTexture.wrapS = THREE.RepeatWrapping;
+  floorNormalTexture.wrapT = THREE.RepeatWrapping;
+
+  floorRoughnessTexture.wrapS = THREE.RepeatWrapping;
+  floorRoughnessTexture.wrapT = THREE.RepeatWrapping;
+
+  const geo = new THREE.PlaneGeometry(20, 20);
+  const material = new THREE.MeshStandardMaterial({
+    map: floorColorTexture,
+    aoMap: floorAmbientOcclusionTexture,
+    normalMap: floorNormalTexture,
+    roughnessMap: floorRoughnessTexture,
+  });
+
+  const floor = new THREE.Mesh(geo, material);
+
+  floor.geometry.setAttribute(
+    'uv2',
+    new THREE.Float32BufferAttribute(floor.geometry.attributes.uv.array, 2),
+  );
+
+  return floor;
 };
 
 const createWalls = () => {
