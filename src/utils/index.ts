@@ -11,8 +11,17 @@ export const createFloor = () => {
 };
 
 const createWalls = () => {
-  const wallsTexture = textureLoader.load(
+  const bricksColorTexture = textureLoader.load(
     '../../static/textures/bricks/color.jpg',
+  );
+  const bricksAmbientOcclusionTexture = textureLoader.load(
+    '../../static/textures/bricks/ambientOcclusion.jpg',
+  );
+  const bricksNormalTexture = textureLoader.load(
+    '../../static/textures/bricks/normal.jpg',
+  );
+  const bricksRoughnessTexture = textureLoader.load(
+    '../../static/textures/bricks/roughness.jpg',
   );
 
   const wallSizes = {
@@ -23,7 +32,17 @@ const createWalls = () => {
 
   const walls = new THREE.Mesh(
     new THREE.BoxGeometry(wallSizes.width, wallSizes.height, wallSizes.depth),
-    new THREE.MeshStandardMaterial({ map: wallsTexture }),
+    new THREE.MeshStandardMaterial({
+      map: bricksColorTexture,
+      aoMap: bricksAmbientOcclusionTexture,
+      normalMap: bricksNormalTexture,
+      roughnessMap: bricksRoughnessTexture,
+    }),
+  );
+
+  walls.geometry.setAttribute(
+    'uv2',
+    new THREE.Float32BufferAttribute(walls.geometry.attributes.uv.array, 2),
   );
 
   walls.position.y = wallSizes.height / 2;
