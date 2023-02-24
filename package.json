@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "devDependencies": {
+    "@types/node": "^18.14.1",
     "@types/stats.js": "^0.17.0",
     "@types/three": "^0.144.0",
     "prettier": "^2.8.3",
