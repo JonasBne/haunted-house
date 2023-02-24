@@ -46,8 +46,6 @@ export const createFloor = () => {
 
   const floor = new THREE.Mesh(geo, material);
 
-  floor.receiveShadow = true;
-
   floor.geometry.setAttribute(
     'uv2',
     new THREE.Float32BufferAttribute(floor.geometry.attributes.uv.array, 2),
@@ -193,8 +191,6 @@ const createBush = () => {
     new THREE.MeshStandardMaterial({ color: colors.bush }),
   );
 
-  bush.castShadow = true;
-
   return bush;
 };
 
@@ -263,7 +259,6 @@ export const createGhosts = () => {
 
 export const createHouse = () => {
   const house = new THREE.Group();
-  house.castShadow = true;
 
   const walls = createWalls();
   const roof = createRoof();

@@ -25,6 +25,7 @@ const scene = new THREE.Scene();
 
 // house
 const house = createHouse();
+house.castShadow = true;
 scene.add(house);
 
 // floor
@@ -36,20 +37,26 @@ scene.add(floor);
 
 // graves
 const graves = createGraves();
+graves.castShadow = true;
 scene.add(graves);
 
 // ghosts
 const { ghost1, ghost2, ghost3 } = createGhosts();
+ghost1.castShadow = true;
+ghost2.castShadow = true;
+ghost3.castShadow = true;
 scene.add(ghost1, ghost2, ghost3);
 
 // lights
 // Ambient light
 const ambientLight = new THREE.AmbientLight(colors.light, 0.12);
+ambientLight.castShadow = true;
 gui.add(ambientLight, 'intensity').min(0).max(1).step(0.001);
 scene.add(ambientLight);
 
 // Directional light
 const moonLight = new THREE.DirectionalLight(colors.light, 0.12);
+moonLight.castShadow = true;
 moonLight.position.set(4, 5, -2);
 gui.add(moonLight, 'intensity').min(0).max(1).step(0.001);
 gui.add(moonLight.position, 'x').min(-5).max(5).step(0.001);
@@ -116,9 +123,6 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 // give renderer same color as fog
 renderer.setClearColor(colors.fog);
 renderer.shadowMap.enabled = true;
-
-// shadows
-moonLight.castShadow = true;
 
 const clock = new Clock();
 
