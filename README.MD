@@ -1,5 +1,7 @@
 # Haunted House 👻
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/c5c20606-09e1-442a-a01b-6c97e3279f91/deploy-status)](https://app.netlify.com/sites/haunted-house-threejs-64603/deploys)
+
 ### Description
 
 This project is part of [threejs-journey](https://threejs-journey.com/) by Bruno Simon.
