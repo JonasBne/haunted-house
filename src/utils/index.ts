@@ -4,17 +4,13 @@ import { colors } from '../consts';
 const textureLoader = new THREE.TextureLoader();
 
 export const createFloor = () => {
-  const floorColorTexture = textureLoader.load(
-    '../../static/textures/grass/color.jpg',
-  );
+  const floorColorTexture = textureLoader.load('/assets/grass/color.jpg');
   const floorAmbientOcclusionTexture = textureLoader.load(
-    '../../static/textures/grass/ambientOcclusion.jpg',
+    '/assets/grass/ambientOcclusion.jpg',
   );
-  const floorNormalTexture = textureLoader.load(
-    '../../static/textures/grass/normal.jpg',
-  );
+  const floorNormalTexture = textureLoader.load('/assets/grass/normal.jpg');
   const floorRoughnessTexture = textureLoader.load(
-    '../../static/textures/grass/roughness.jpg',
+    '/assets/grass/roughness.jpg',
   );
 
   // repeat the texture in smaller sizes to avoid that really large grasses
@@ -55,17 +51,13 @@ export const createFloor = () => {
 };
 
 const createWalls = () => {
-  const bricksColorTexture = textureLoader.load(
-    '../../static/textures/bricks/color.jpg',
-  );
+  const bricksColorTexture = textureLoader.load('/assets/bricks/color.jpg');
   const bricksAmbientOcclusionTexture = textureLoader.load(
-    '../../static/textures/bricks/ambientOcclusion.jpg',
+    '/assets/bricks/ambientOcclusion.jpg',
   );
-  const bricksNormalTexture = textureLoader.load(
-    '../../static/textures/bricks/normal.jpg',
-  );
+  const bricksNormalTexture = textureLoader.load('/assets/bricks/normal.jpg');
   const bricksRoughnessTexture = textureLoader.load(
-    '../../static/textures/bricks/roughness.jpg',
+    '/assets/bricks/roughness.jpg',
   );
 
   const wallSizes = {
@@ -119,26 +111,16 @@ const createRoof = () => {
 };
 
 const createDoor = () => {
-  const doorColorTexture = textureLoader.load(
-    '../../static/textures/door/color.jpg',
-  );
-  const doorAlphaTexture = textureLoader.load(
-    '../../static//textures/door/alpha.jpg',
-  );
+  const doorColorTexture = textureLoader.load('/assets/door/color.jpg');
+  const doorAlphaTexture = textureLoader.load('/assets/door/alpha.jpg');
   const doorAmbientOcclusionTexture = textureLoader.load(
-    '/textures/door/ambientOcclusion.jpg',
+    '/assets/door/ambientOcclusion.jpg',
   );
-  const doorHeightTexture = textureLoader.load(
-    '../../static//textures/door/height.jpg',
-  );
-  const doorNormalTexture = textureLoader.load(
-    '../../static//textures/door/normal.jpg',
-  );
-  const doorMetalnessTexture = textureLoader.load(
-    '../../static//textures/door/metalness.jpg',
-  );
+  const doorHeightTexture = textureLoader.load('/assets/door/height.jpg');
+  const doorNormalTexture = textureLoader.load('/assets/door/normal.jpg');
+  const doorMetalnessTexture = textureLoader.load('/assets/door/metalness.jpg');
   const doorRoughnessTexture = textureLoader.load(
-    '../../static//textures/door/roughness.jpg',
+    './assets/door/roughness.jpg',
   );
 
   const doorSizes = {
